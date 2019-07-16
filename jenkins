@@ -7,7 +7,7 @@ pipeline {
         label 'master'
         }
     options {
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+          buildDiscarder([$class: 'BuildRotator', artifactsDaysToKeep: 999, artifactsNumToKeep: 3, daysToKeep: 999, numToKeep: 3])
         timestamps()
     }
     stages {
