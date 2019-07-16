@@ -6,9 +6,10 @@ pipeline {
     agent { 
         label 'master'
         }
-   options {
-  buildDiscarder([$class: 'BuildRotator', artifactsDaysToKeep: 999, artifactsNumToKeep: 3, daysToKeep: 999, numToKeep: 3])
-}
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '3', artifactNumToKeepStr: '3'))
+        timestamps()
+    }
     stages {
         stage("First step") {
             steps {
