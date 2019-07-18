@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo "========= alpine build already started ========="
                 dir ('docker/simple_alpine') {
-                        sh 'docker build .'
+                        sh 'ssh root@78.140.171.168 \'docker build .\''
                 } 
             }
         }
