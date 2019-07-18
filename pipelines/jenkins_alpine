@@ -18,6 +18,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_zenmike', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh 'ssh root@iddqd \'docker login -u $USERNAME -p $PASSWORD \''
             } 
+}
         }
         stage("docker build") {
             steps {
