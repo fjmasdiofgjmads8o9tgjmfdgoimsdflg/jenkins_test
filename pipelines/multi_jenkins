@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo "========= alpine build already started ========="
                 dir ('docker/simple_alpine') {
-                        sh 'sudo docker build -t zenmike/simple_alpine:latest . '
+                        sh 'sudo docker build -t zenmike/simple_alpine:mariadb . '
                 } 
             }
         }
