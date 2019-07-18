@@ -12,20 +12,18 @@ pipeline {
         timestamps()
     }
     stages {
-#        stage("docker login") {
-#            steps {
-#                echo "========= docker login ========="
-#                withCredentials([usernamePassword(credentialsId: 'dockerhub_zenmike', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-#                    sh 'ssh root@iddqd \'docker login -u $USERNAME -p $PASSWORD \''
-#            } 
-#}
-#        }
         stage("docker build") {
             steps {
                 echo "========= alpine build already started ========="
                 dir ('docker/simple_alpine') {
                         sh 'ssh root@iddqd \'git clone https://github.com/zenmike1/jenkins_test && docker build -t zenmike/alpine_simple ./jenkins_test/docker/simple_alpine && rm -rf ./jenkins_test \''
                 } 
+            }
+        }
+        stage("docker push") {
+            steps {
+                echo " ============== start pushing image =================="
+                  sh 'ssh root@iddqd \'docker push zenmike:alpine_simple \''
             }
         }
     }
