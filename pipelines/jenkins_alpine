@@ -20,6 +20,14 @@ pipeline {
                 } 
             }
         }
+               stage("docker login") {
+            steps {
+                echo "========= docker login ========="
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_zenmike', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh 'ssh root@iddqd \'docker login -u $USERNAME -p $PASSWORD \''
+            }
+}
+
         stage("docker push") {
             steps {
                 echo " ============== start pushing image =================="
