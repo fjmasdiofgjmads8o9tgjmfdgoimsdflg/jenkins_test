@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo "========= alpine build already started ========="
                 dir ('docker/simple_alpine') {
-                        sh 'ssh root@78.140.171.168 \'git clone https://github.com/zenmike1/jenkins_test && docker build ./jenkins_test/docker/simple_alpine && rm -rf ./jenkins_test \''
+                        sh 'ssh root@iddqd \'git clone https://github.com/zenmike1/jenkins_test && docker build ./jenkins_test/docker/simple_alpine && rm -rf ./jenkins_test \''
                 } 
             }
         }
