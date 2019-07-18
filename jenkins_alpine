@@ -1,0 +1,23 @@
+#!groovy
+// Check ub1 properties
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent { 
+        label 'master'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '3', artifactNumToKeepStr: '3'))
+        timestamps()
+    }
+    stages {
+        stage("docker build") {
+            steps {
+                echo "========= alpine build already started ========="
+                dir ('docker/simple_alpine') {
+                        sh 'docker build .'
+                } 
+            }
+        }
+    }
+}
