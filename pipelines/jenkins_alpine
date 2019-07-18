@@ -23,7 +23,7 @@ pipeline {
         stage("docker push") {
             steps {
                 echo " ============== start pushing image =================="
-                  sh 'ssh root@iddqd \'docker push zenmike:alpine_simple \''
+                  sh 'ssh root@iddqd \'docker push zenmike/alpine_simple \''
             }
         }
     }
