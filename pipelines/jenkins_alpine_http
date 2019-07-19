@@ -23,7 +23,7 @@ pipeline {
         stage("docker build") {
             steps {
                 echo "========= alpine build already started ========="
-                dir ('docker/alpine_http') {
+                dir ('docker/http_alpine') {
                         sh 'sudo docker build -t zenmike/alpine_http:latest . '
                 } 
             }
