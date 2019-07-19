@@ -1,0 +1,39 @@
+#!groovy
+// Check ub1 properties
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent { 
+        label 'master'
+        }
+    triggers { pollSCM('* * * * *') }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '3', artifactNumToKeepStr: '3'))
+        timestamps()
+    }
+    stages {
+        stage("docker login") {
+            steps {
+                echo " ============== docker login =================="
+                withCredentials([usernamePassword(credentialsId:'zenmike_dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh 'sudo docker login -u $USERNAME -p $PASSWORD'
+                }
+            }
+        }
+        stage("docker build") {
+            steps {
+                echo "========= alpine build already started ========="
+                dir ('docker/alpine_http') {
+                        sh 'sudo docker build -t zenmike/alpine_http:latest . '
+                } 
+            }
+        }
+
+        stage("docker push") {
+            steps {
+                echo " ============== start pushing image =================="
+                  sh 'sudo docker push zenmike/alpine_http'
+            }
+        }
+    }
+}
